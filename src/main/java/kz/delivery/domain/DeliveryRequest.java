@@ -24,7 +24,7 @@ public record DeliveryRequest(
         }
     }
 
-    /** Удобный конструктор: без лимита выбросов. */
+
     public DeliveryRequest(int id, DeliveryPriority priority, double maxBudget,
                            int maxDeliveryMinutes, boolean ecoPreferred) {
         this(id, priority, maxBudget, maxDeliveryMinutes, Double.MAX_VALUE, ecoPreferred);

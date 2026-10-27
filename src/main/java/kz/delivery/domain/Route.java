@@ -7,9 +7,9 @@ public record Route(
         double distanceKm,
         int estimatedMinutes,
         double cost,
-        double carbonEmission,      // кг CO2
-        int trafficDelayMinutes,    // штраф за пробки, прибавляется ко времени
-        boolean available            // false = маршрут закрыт или недоступен
+        double carbonEmission,
+        int trafficDelayMinutes,
+        boolean available
 ) {
 
     public Route {
@@ -36,7 +36,7 @@ public record Route(
         }
     }
 
-    /** Реальное время в пути с учётом пробок. */
+
     public int totalMinutes() {
         return estimatedMinutes + trafficDelayMinutes;
     }
