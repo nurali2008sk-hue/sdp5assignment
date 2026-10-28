@@ -11,6 +11,7 @@ import kz.delivery.strategy.BalancedRouteStrategy;
 import kz.delivery.strategy.CheapestRouteStrategy;
 import kz.delivery.strategy.EcoFriendlyRouteStrategy;
 import kz.delivery.strategy.FastestRouteStrategy;
+import kz.delivery.strategy.PremiumRouteStrategy;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Main {
         runtimeSwitchingDemo(routes);
         automaticSelectionDemo(routes);
         comparisonDemo(routes);
+        premiumStrategyDemo(routes);
         failureScenariosDemo(routes);
     }
 
@@ -67,6 +69,22 @@ public class Main {
 
         DeliveryRequest request = new DeliveryRequest(105, DeliveryPriority.STANDARD, 6000, 60, false);
         System.out.println(StrategyComparator.withDefaultStrategies().report(routes, request));
+    }
+
+    /** Пятая стратегия подключается без изменения существующих production-классов. */
+    private static void premiumStrategyDemo(List<Route> routes) {
+        System.out.println("=== FIFTH STRATEGY: PREMIUM ===\n");
+
+        StrategyComparator comparator = new StrategyComparator(List.of(
+                new FastestRouteStrategy(),
+                new CheapestRouteStrategy(),
+                new EcoFriendlyRouteStrategy(),
+                new BalancedRouteStrategy(),
+                new PremiumRouteStrategy()
+        ));
+
+        DeliveryRequest request = new DeliveryRequest(106, DeliveryPriority.STANDARD, 6000, 60, false);
+        System.out.println(comparator.report(routes, request));
     }
 
     private static void failureScenariosDemo(List<Route> routes) {
