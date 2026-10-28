@@ -1,5 +1,6 @@
 package kz.delivery;
 
+import kz.delivery.comparison.StrategyComparator;
 import kz.delivery.domain.DeliveryPriority;
 import kz.delivery.domain.DeliveryRequest;
 import kz.delivery.domain.Route;
@@ -20,6 +21,7 @@ public class Main {
 
         runtimeSwitchingDemo(routes);
         automaticSelectionDemo(routes);
+        comparisonDemo(routes);
         failureScenariosDemo(routes);
     }
 
@@ -58,6 +60,13 @@ public class Main {
             System.out.println("Request #" + request.id() + " (" + request.priority() + ")");
             System.out.println(planner.plan(routes, request).explain());
         }
+    }
+
+    private static void comparisonDemo(List<Route> routes) {
+        System.out.println("=== STRATEGY COMPARISON MODE ===\n");
+
+        DeliveryRequest request = new DeliveryRequest(105, DeliveryPriority.STANDARD, 6000, 60, false);
+        System.out.println(StrategyComparator.withDefaultStrategies().report(routes, request));
     }
 
     private static void failureScenariosDemo(List<Route> routes) {
