@@ -9,19 +9,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Проверяет жёсткие ограничения (hard constraints).
- * Маршрут, нарушивший хотя бы одно, не может победить, какой бы хороший score он ни имел.
- */
+
 public final class RouteConstraintChecker {
 
-    /** Результат фильтрации: подходящие маршруты и причины отклонения остальных. */
+
     public record FilterResult(List<Route> validRoutes, Map<String, String> rejected) {}
 
     private RouteConstraintChecker() {
     }
 
-    /** Возвращает причину отклонения или null, если маршрут подходит. */
+
     public static String violation(Route route, DeliveryRequest request) {
         if (!route.available()) {
             return "Route is unavailable.";
@@ -41,10 +38,10 @@ public final class RouteConstraintChecker {
     }
 
     /**
-     * Отфильтровывает маршруты.
      *
-     * @throws IllegalArgumentException если request null или в списке есть null-элемент
-     * @throws NoSuitableRouteException если список пуст или ни один маршрут не подошёл
+     *
+     * @throws IllegalArgumentException
+     * @throws NoSuitableRouteException
      */
     public static FilterResult filter(List<Route> routes, DeliveryRequest request) {
         if (request == null) {

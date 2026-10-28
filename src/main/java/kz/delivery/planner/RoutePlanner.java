@@ -8,10 +8,7 @@ import kz.delivery.strategy.RouteStrategy;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Context. Не знает ни об одном конкретном алгоритме:
- * зависит только от абстракции RouteStrategy и делегирует ей работу.
- */
+
 public class RoutePlanner {
 
     private RouteStrategy strategy;
@@ -20,7 +17,7 @@ public class RoutePlanner {
         this.strategy = Objects.requireNonNull(strategy, "Strategy must not be null");
     }
 
-    /** Смена алгоритма во время работы программы. */
+
     public void setStrategy(RouteStrategy strategy) {
         this.strategy = Objects.requireNonNull(strategy, "Strategy must not be null");
     }

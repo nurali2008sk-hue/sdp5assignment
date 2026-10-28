@@ -9,7 +9,7 @@ import java.util.List;
 public interface RouteStrategy {
 
     /**
-     * @throws kz.delivery.exception.NoSuitableRouteException если ни один маршрут не подходит
+     * @throws kz.delivery.exception.NoSuitableRouteException
      */
     RouteDecision selectRoute(List<Route> routes, DeliveryRequest request);
 

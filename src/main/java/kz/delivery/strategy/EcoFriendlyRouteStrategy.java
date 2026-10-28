@@ -7,10 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Выбирает маршрут с минимальным экологическим штрафом:
- * ecoScore = carbonEmission * emissionWeight + distanceKm * distanceWeight
- */
+
 public class EcoFriendlyRouteStrategy implements RouteStrategy {
 
     private static final double DEFAULT_EMISSION_WEIGHT = 1.0;
@@ -54,7 +51,7 @@ public class EcoFriendlyRouteStrategy implements RouteStrategy {
         return new RouteDecision(getStrategyName(), best, ecoScore(best), reasons, filtered.rejected());
     }
 
-    /** Формула eco-score. Публичная, чтобы тесты и отчёт ссылались на одно место. */
+
     public double ecoScore(Route route) {
         return route.carbonEmission() * emissionWeight + route.distanceKm() * distanceWeight;
     }

@@ -58,9 +58,9 @@ class FastestRouteStrategyTest {
     void differentBudgetProducesDifferentWinner() {
         List<Route> routes = DemoData.routes();
 
-        // при бюджете 6000 маршрут F (7500) запрещён, побеждает B
+
         assertEquals("B", strategy.selectRoute(routes, request(URGENT, 6000, 60)).selectedRoute().id());
-        // при бюджете 10000 F разрешён и он быстрее всех
+
         assertEquals("F", strategy.selectRoute(routes, request(URGENT, 10000, 60)).selectedRoute().id());
     }
 }

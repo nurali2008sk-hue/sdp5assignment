@@ -12,11 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Решает, КАКУЮ стратегию применить к запросу.
- * Правила проверяются по порядку добавления, побеждает первое подходящее.
- * Если ни одно не подошло, используется стратегия по умолчанию.
- */
+
 public class StrategySelector {
 
     private final List<SelectionRule> rules = new ArrayList<>();
@@ -26,7 +22,7 @@ public class StrategySelector {
         this.defaultStrategy = Objects.requireNonNull(defaultStrategy, "Default strategy must not be null");
     }
 
-    /** Добавляет правило в конец списка (порядок = приоритет). */
+
     public StrategySelector addRule(SelectionRule rule) {
         rules.add(Objects.requireNonNull(rule, "Rule must not be null"));
         return this;
@@ -43,11 +39,7 @@ public class StrategySelector {
                 .orElse(defaultStrategy);
     }
 
-    /**
-     * Набор правил по умолчанию:
-     * URGENT -> Fastest; ecoPreferred -> Eco; ECO -> Eco; ECONOMY -> Cheapest; иначе Balanced.
-     * URGENT проверяется первым, чтобы срочная доставка не подменялась эко-предпочтением.
-     */
+
     public static StrategySelector withDefaultRules() {
         return new StrategySelector(new BalancedRouteStrategy())
                 .addRule(SelectionRule.forPriority(DeliveryPriority.URGENT, new FastestRouteStrategy()))

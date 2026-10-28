@@ -12,10 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Выбирает маршрут с минимальной полной стоимостью:
- * totalCost = baseCost + distanceKm * costPerKm + baseCost * prioritySurcharge + serviceFee
- */
+
 public class CheapestRouteStrategy implements RouteStrategy {
 
     private static final double DEFAULT_COST_PER_KM = 15.0;
@@ -87,7 +84,7 @@ public class CheapestRouteStrategy implements RouteStrategy {
         return new RouteDecision(getStrategyName(), best, totalCost(best, request), reasons, rejected);
     }
 
-    /** Формула стоимости. Вынесена в метод, чтобы тесты и отчёт ссылались на одно место. */
+
     public double totalCost(Route route, DeliveryRequest request) {
         return route.cost()
                 + route.distanceKm() * costPerKm

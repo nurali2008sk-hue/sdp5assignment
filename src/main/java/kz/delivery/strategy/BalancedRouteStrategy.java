@@ -8,10 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.ToDoubleFunction;
 
-/**
- * Многокритериальная стратегия: взвешенная сумма нормализованных показателей.
- * Веса настраиваются и обязаны давать в сумме 1.0.
- */
+
 public class BalancedRouteStrategy implements RouteStrategy {
 
     private static final double EPSILON = 1e-9;
@@ -21,7 +18,7 @@ public class BalancedRouteStrategy implements RouteStrategy {
     private final double distanceWeight;
     private final double emissionWeight;
 
-    /** Конфигурация по умолчанию для обычной доставки. */
+
     public BalancedRouteStrategy() {
         this(0.40, 0.30, 0.10, 0.20);
     }
@@ -91,7 +88,7 @@ public class BalancedRouteStrategy implements RouteStrategy {
         return "Balanced Strategy";
     }
 
-    /** Диапазон значений одного критерия + min-max нормализация. */
+
     private record Range(double min, double max) {
 
         static Range of(List<Route> routes, ToDoubleFunction<Route> extractor) {

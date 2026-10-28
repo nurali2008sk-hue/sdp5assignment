@@ -6,7 +6,7 @@ import kz.delivery.strategy.RouteStrategy;
 
 import java.util.function.Predicate;
 
-/** Бизнес-правило: если запрос удовлетворяет условию, используем эту стратегию. */
+
 public record SelectionRule(
         String description,
         Predicate<DeliveryRequest> condition,
@@ -23,7 +23,7 @@ public record SelectionRule(
         return condition.test(request);
     }
 
-    /** Типовое правило: приоритет запроса, затем стратегия. */
+
     public static SelectionRule forPriority(DeliveryPriority priority, RouteStrategy strategy) {
         return new SelectionRule(
                 "priority == " + priority,

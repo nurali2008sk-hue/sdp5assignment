@@ -54,7 +54,7 @@ class StrategyComparatorTest {
 
     @Test
     void failingStrategyDoesNotBreakTheComparison() {
-        // база 1000 укладывается в бюджет 1000 (Fastest ок), но полная стоимость 1250 нет (Cheapest падает)
+
         Route onlyRoute = TestData.route("R", 0, 10, 1000, 1.0, 0, true);
         DeliveryRequest tight = new DeliveryRequest(1, STANDARD, 1000, 60, false);
         StrategyComparator comparator = new StrategyComparator(

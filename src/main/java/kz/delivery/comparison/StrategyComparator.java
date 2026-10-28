@@ -13,7 +13,7 @@ import kz.delivery.strategy.RouteStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Прогоняет один запрос через все переданные стратегии и собирает результаты. */
+
 public class StrategyComparator {
 
     private final List<RouteStrategy> strategies;

@@ -45,7 +45,7 @@ class RoutePlannerTest {
     void plannerWorksWithAnyRouteStrategyImplementation() {
         List<Route> routes = List.of(route("FIRST", 10, 30, 1000, 1.0, 0, true));
 
-        // заглушка: планировщик ничего не знает о её алгоритме, только об интерфейсе
+
         RouteStrategy stub = new RouteStrategy() {
             @Override
             public RouteDecision selectRoute(List<Route> routes, DeliveryRequest request) {

@@ -71,7 +71,7 @@ public class Main {
         System.out.println(StrategyComparator.withDefaultStrategies().report(routes, request));
     }
 
-    /** Пятая стратегия подключается без изменения существующих production-классов. */
+
     private static void premiumStrategyDemo(List<Route> routes) {
         System.out.println("=== FIFTH STRATEGY: PREMIUM ===\n");
 
