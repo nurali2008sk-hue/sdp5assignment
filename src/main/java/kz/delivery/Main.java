@@ -3,6 +3,7 @@ package kz.delivery;
 import kz.delivery.domain.DeliveryPriority;
 import kz.delivery.domain.DeliveryRequest;
 import kz.delivery.domain.Route;
+import kz.delivery.exception.NoSuitableRouteException;
 import kz.delivery.planner.RoutePlanner;
 import kz.delivery.selector.StrategySelector;
 import kz.delivery.strategy.BalancedRouteStrategy;
@@ -19,6 +20,7 @@ public class Main {
 
         runtimeSwitchingDemo(routes);
         automaticSelectionDemo(routes);
+        failureScenariosDemo(routes);
     }
 
     private static void runtimeSwitchingDemo(List<Route> routes) {
@@ -56,5 +58,43 @@ public class Main {
             System.out.println("Request #" + request.id() + " (" + request.priority() + ")");
             System.out.println(planner.plan(routes, request).explain());
         }
+    }
+
+    private static void failureScenariosDemo(List<Route> routes) {
+        System.out.println("=== FAILURE SCENARIOS ===\n");
+        RoutePlanner planner = new RoutePlanner(new FastestRouteStrategy());
+
+        attempt("1. Empty route list",
+                () -> planner.plan(List.of(),
+                        new DeliveryRequest(301, DeliveryPriority.STANDARD, 6000, 60, false)));
+
+        attempt("2. No route fits the budget (100)",
+                () -> planner.plan(routes,
+                        new DeliveryRequest(302, DeliveryPriority.URGENT, 100, 60, false)));
+
+        attempt("3. Balanced weights sum to 0.9",
+                () -> new BalancedRouteStrategy(0.4, 0.3, 0.1, 0.1));
+
+        attempt("4. Negative route cost",
+                () -> new Route("X", routes.get(0).origin(), routes.get(0).destination(),
+                        10, 20, -5, 1.0, 0, true));
+
+        attempt("5. Missing delivery priority",
+                () -> new DeliveryRequest(303, null, 6000, 60, false));
+    }
+
+    private static void attempt(String title, Runnable action) {
+        System.out.println(title);
+        try {
+            action.run();
+            System.out.println("  (no error, unexpected!)");
+        } catch (NoSuitableRouteException e) {
+            System.out.println("  NoSuitableRouteException: " + e.getMessage());
+            e.getRejectedRoutes().forEach((id, why) ->
+                    System.out.println("    Route " + id + ": " + why));
+        } catch (IllegalArgumentException e) {
+            System.out.println("  IllegalArgumentException: " + e.getMessage());
+        }
+        System.out.println();
     }
 }
